@@ -4,11 +4,11 @@
 
 ### Docker
 
-Estamos utilizando os arquivos Dockerfile e docker-compose.yml para configurar o Docker através de scripts pré definidos. O docker-compose define um script para a estrutura geral de serviços dos containers, portas, volumes e outras configurações. Enquanto o Dockerfile está sendo utilizado para criar a imagem Python aonde o Django será executado. O Postgres roda utilizando uma imagem já existente e bastante popular, não sendo necessárias configurações adicionais.
+Estamos utilizando os arquivos Dockerfile e docker-compose.yml para configurar o Docker através de scripts pré definidos. O docker-compose define um script para a estrutura geral de serviços dos containers, portas, volumes e outras configurações. Enquanto o Dockerfile está sendo utilizado para criar a imagem Python aonde o Django será executado. O Postgres roda utilizando uma imagem já existente (bastante popular), não sendo necessárias configurações adicionais.
 
 ### Criando e subindo os containers
 
-Após configurados os arquivos de scripts e o Docker devidamente instalado é hora o docker-compose baixar as dependencias e iniciar os serviços executando o comando:
+Após o Docker devidamente instalado e configurados os arquivos de scripts é hora do docker-compose baixar as dependencias e iniciar os serviços executando o comando:
 
 ```bash
 docker-compose up --build
@@ -22,18 +22,37 @@ docker-compose up
 
 #### Comandos básicos para docker-compose
 
-- up --build : cria e sobe os containers
-- up : sobe os containers
-- down : derruba o container
-- exec : possibilita executar comandos no bash do container
+Criar e subir os containers
 
-Exemplo:
+```bash
+docker-compose up --build
+```
+
+Subir os containers
+
+```bash
+docker-compose up
+```
+
+Derrubar os containers
+
+```bash
+docker-compose down
+```
+
+Executar comandos no bash do container
 
 ```bash
 docker-compose exec <service_name> <comandos>
 ```
 
-Ps. Os containers podem ser derrubados também via docker desktop ou no terminal em execução com o atalho: Ctrl + C
+Exemplo fazendo a migração de models para a base de dados:
+
+```bash
+docker-compose exec web python manage.py migrate
+```
+
+Ps. Os containers podem ser derrubados também via docker desktop ou no terminal em execução com o atalho: <kbd>Ctrl</kbd> + <kbd>C</kbd>
 
 ## Configurando o ambiente
 
@@ -82,12 +101,20 @@ startapp loja
 
 #### Dica extra
 
-Você pode personalizar seu terminal também editando esse arquivo, segue a minha configuração minimalista (exibindo apenas diretório atual e icone), basta adicionar uma linha abaixo da existente:
+Esta configuração personaliza também seu terminal com uma configuração minimalista (exibindo apenas emoji e diretório atual), podendo ser customizada ou simplesmente ignorada comentando ou apagando a linha iniciada com PS1=... :
 
 ```bash
 PS1='\[\e[0;32m\]\W 👽 \[\e[0m\]'
 ```
 
-Procure por PS1 no documento e insira logo abaixo, você pode incluir # para ignorar linha caso queira realizar seus testes e personalizar ao seu gosto.
+Ps. Para inserir emojis em qualquer lugar no Windows 11, pressione <kbd>Win</kbd> + <kbd>.</kbd> e escolha o Emoji.
 
-Ps. Para inserir emojis em qualquer lugar no Windows 11, pressione <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="16px" viewBox="0 0 24 24" width="26px" fill="#e3e3e3"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M11 11V3H5c-1.1 0-2 .9-2 2v6h8zm2 0h8V5c0-1.1-.9-2-2-2h-6v8zm-2 2H3v6c0 1.1.9 2 2 2h6v-8zm2 0v8h6c1.1 0 2-.9 2-2v-6h-8z"/></g></g></svg>+ .
+Estas configurações são aplicadas após reiniciar o terminal ou executar o comando:
+
+```bash
+source ~/.bashrc
+```
+
+### Autor
+
+[@cristianodrager](https://www.github.com/cristianodrager)
