@@ -11,5 +11,6 @@
         "django-html": "html",
         "jinja-html": "html"
     },
-    "emmet.triggerExpansionOnTab": true
+    "emmet.triggerExpansionOnTab": true,
+    "editor.formatOnSave": true
 }

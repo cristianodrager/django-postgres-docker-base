@@ -29,6 +29,8 @@ ENV/
 .env/
 .envrc
 *.env
+.bash_aliases
+*.bash_aliases
 
 # Pastas de build
 build/
