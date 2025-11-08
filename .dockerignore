@@ -1,0 +1,59 @@
+# Arquivos e pastas do sistema
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Logs e caches
+*.log
+*.pot
+*.mo
+*.log*
+*.pid
+*.seed
+*.coverage
+*.pytest_cache/
+*.mypy_cache/
+*.tox/
+*.ruff_cache/
+.coverage
+htmlcov/
+
+# Ambiente virtual
+venv/
+env/
+ENV/
+.venv/
+.env/
+.envrc
+*.env
+
+# Pastas de build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# Configurações locais e IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Arquivos de controle de versão
+.git/
+.gitignore
+.gitattributes
+
+# Arquivos de container e CI/CD
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Arquivos estáticos gerados
+staticfiles/
+media/

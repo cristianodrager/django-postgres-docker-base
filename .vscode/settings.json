@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "*.html": "django-html",
+        "*.htm": "django-html",
+        "*.js": "javascript",
+        "*.css": "css",
+        "*.json": "json"
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html",
+        "jinja-html": "html"
+    },
+    "emmet.triggerExpansionOnTab": true
+}

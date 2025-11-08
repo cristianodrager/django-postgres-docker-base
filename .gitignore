@@ -1,0 +1,99 @@
+# ===============================
+# Django / Python
+# ===============================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.mo
+*.pot
+
+# Arquivos de ambiente virtual
+venv/
+.env/
+.envrc
+.venv/
+env/
+ENV/
+
+# Configurações locais
+settings_local.py
+local_settings.py
+
+# ===============================
+# Django assets
+# ===============================
+
+# Arquivos gerados por collectstatic
+staticfiles/
+static/
+media/
+
+# ===============================
+# Logs, caches e relatórios
+# ===============================
+
+*.log
+*.log.*
+*.pid
+*.seed
+*.cover
+*.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+htmlcov/
+.tox/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.dmypy.json
+.cache/
+__snapshots__/
+
+# ===============================
+# Build / distribuição
+# ===============================
+
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# ===============================
+# IDEs e editores
+# ===============================
+
+# .vscode/
+
+# ===============================
+# Docker / Containers
+# ===============================
+
+# Ignorar arquivos de contexto de build
+# Dockerfile
+# docker-compose.yml
+# .dockerignore
+
+# ===============================
+# Git / Controle de versão
+# ===============================
+
+# .gitignore
+.gitattributes
+
+# ===============================
+# Outros
+# ===============================
+
+*.bak
+*.swp
+*.swo
+*.tmp
+Thumbs.db
+Desktop.ini
+.DS_Store
