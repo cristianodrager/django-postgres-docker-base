@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+<h3>Login</h3>
+<h5>Please enter your credentials to log in.</h5>
+
+<form action="{% url "account-signup" %}" method="post">
+  {% csrf_token %}
+  <label for="username">Username:</label><br />
+  <input type="text" id="username" name="username" required /><br /><br />
+
+  <label for="password">Password:</label><br />
+  <input type="password" id="password" name="password" required /><br /><br />
+
+  <input type="submit" value="Login" />
+</form>
+
+{% endblock %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -103,13 +104,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login settings
+LOGIN_URL = 'account-login'              # nome da rota (ou caminho) para a página de login
+LOGIN_REDIRECT_URL = 'account-profile'      # para onde ir depois do login bem-sucedido
+LOGOUT_REDIRECT_URL = 'account-login'    # opcional: para onde ir após o logout
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
