@@ -29,8 +29,27 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'changeme-in-production')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '*',
+    'localhost',
+    os.getenv('CSRF_TRUSTED')
+    ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [os.getenv('CSRF_TRUSTED')]
+
+CORS_REPLACE_HTTPS_REFERER = True
+
+CSRF_COOKIE_DOMAIN = os.getenv('CSRF_TRUSTED')
+
+CORS_ORIGIN_WHITELIST = (
+    os.getenv('CSRF_TRUSTED'),
+)
 
 # Application definition
 
@@ -43,6 +62,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'account',
+    'scanner',
+    'family',
+    'student',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +147,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
