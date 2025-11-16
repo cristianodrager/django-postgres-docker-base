@@ -12,6 +12,7 @@ __pycache__/
 *.pot
 
 # Arquivos de ambiente virtual
+.env
 venv/
 .env/
 .envrc
@@ -22,6 +23,11 @@ ENV/
 # Configurações locais
 settings_local.py
 local_settings.py
+
+# ===============================
+# Django migrations
+# ===============================
+migrations/
 
 # ===============================
 # Django assets
