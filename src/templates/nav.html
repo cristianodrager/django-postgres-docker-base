@@ -6,7 +6,7 @@
 >
   <div class="offcanvas-header">
     <h5 class="offcanvas-title mx-2" id="offcanvasRightLabel">
-      {% lorem 1 w random %} {% comment %} {{ username }} {% endcomment %}
+      {{ request.user.username }}
     </h5>
     <button
       type="button"
@@ -18,17 +18,18 @@
 
   <div class="offcanvas-body">
     <hr />
-    {% include "menu.html" %}
+    {% if request.user.username %} {% include "menu.html" %} {% endif %}
   </div>
 </div>
 
 <nav class="navbar fixed-top bg-body-tertiary">
   <div class="container-fluid">
     <h4>
-      <a class="navbar-brand me-auto d-flex align-items-center" href="#">
+      <a class="navbar-brand me-auto d-flex align-items-center" href="{% url "home" %}">
         <span class="material-icons"> auto_awesome </span> Escola</a
       >
     </h4>
+    {% if request.user.username %}
     <button
       class="btn"
       type="button"
@@ -38,5 +39,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    {% endif %}
+    {% if not request.user.username %}
+
+    <a
+      class="btn btn-outline-primary d-flex align-items-center gap-2"
+      href="{% url "account-login" %}"
+    >
+      <span class="material-icons"> login </span> Login
+    </a>
+    {% endif %}
   </div>
 </nav>
