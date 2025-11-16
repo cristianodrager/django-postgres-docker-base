@@ -8,4 +8,3 @@ urlpatterns = [
     path('account/', include('account.urls')),
 ]
 
-handler404 = 'home.views.not_found_404'
