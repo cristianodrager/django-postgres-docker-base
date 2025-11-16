@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block content %}
+<h1>Turmas</h1>
+
+<ul>
+  {% for turma in turmas %}
+  <li>
+    <a href="{% url "turma" id=turma.pk  %}">
+    {{ turma.year }} - {{ turma.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

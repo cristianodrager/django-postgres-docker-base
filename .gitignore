@@ -11,8 +11,9 @@ __pycache__/
 *.mo
 *.pot
 
-# Arquivos de ambiente virtual
+# Arquivos de ambiente
 .env
+# Arquivos de ambiente virtual
 venv/
 .env/
 .envrc
