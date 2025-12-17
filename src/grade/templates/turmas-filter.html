@@ -1,0 +1,14 @@
+<p>
+
+    {% for turma in turmas %}
+    
+        <a 
+            href="{% url "turma" id=turma.pk  %}"
+            class="btn btn-light d-flex align-items-center rounded mb-2"
+        >
+            {{ turma.year }} - {{ turma.name|upper }}
+        </a>
+
+    {% endfor %}
+
+</p>

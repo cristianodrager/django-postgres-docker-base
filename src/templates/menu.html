@@ -1,6 +1,14 @@
 <ul class="list-unstyled ps-0">
   <li class="mb-1 d-grid">
     <a
+    class="btn btn-toggle btn-light d-flex align-items-center rounded align-items-end gap-2"
+    href="{% url "scanner" %}"
+    >
+    <span class="material-icons">qr_code</span> Scanner
+  </a>
+  </li>
+  <li class="mb-1 d-grid">
+    <a
       class="btn btn-toggle btn-light d-flex align-items-center rounded align-items-end gap-2"
       href=" {% url "turmas" %} "
     >
@@ -10,9 +18,9 @@
   <li class="mb-1 d-grid">
     <a
       class="btn btn-toggle btn-light d-flex align-items-center rounded align-items-end gap-2"
-      href="{% url "scanner" %}"
+      href=" {% url "search-student" %} "
     >
-      <span class="material-icons">qr_code</span> Scanner
+      <span class="material-icons">face</span> Alunos
     </a>
   </li>
   <li class="mb-1 d-grid">

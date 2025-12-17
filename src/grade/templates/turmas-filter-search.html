@@ -1,0 +1,10 @@
+<p>
+    {% for turma in turmas %}    
+        <a 
+            href="{% url "add-student-turma" turma_id=turma.pk student_id=student_id %}"
+            class="btn btn-light d-flex align-items-center rounded mb-2"
+        >
+            {{ turma.year }} - {{ turma.name|upper }}
+        </a>
+    {% endfor %}
+</p>

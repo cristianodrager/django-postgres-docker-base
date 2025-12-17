@@ -1,0 +1,23 @@
+{% for rep in legal_reps %}
+<p class="gap-2">  
+    {% comment %}Incluir parentesco{% endcomment %}   
+    <a 
+        href="{% url "add-legal-resp" student_id=student_id legal_resp_id=rep.pk  %}"
+        class="btn btn-primary btn-sm align-items-end gap-1"
+    >
+    Vincular
+    </a>
+     {{ rep.name }} - {{ rep.cpf }}
+    <hr>
+</p>
+{% endfor %}
+{% if not legal_reps %}
+    Nenhum responsável encontrado.
+    <br>
+    <a 
+        href="{% url "add-family" %}"
+        class="btn btn-secondary btn-sm align-items-end gap-1"
+    >
+        Adicionar novo
+    </a>
+{% endif %}

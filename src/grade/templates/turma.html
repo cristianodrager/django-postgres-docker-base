@@ -1,9 +1,18 @@
 {% extends "base.html" %} {% block content %}
-<h1>{{ turma.name }}</h1>
+<h1 class="mb-2 pb-2">{{ turma.year }} - {{ turma.name }}</h1>
 
-<ul>
   {% for student in students %}
-  <li>{{ student.name }}</li>
+  <div class="mb-3 card">
+    <div class="card-header">
+      {{ student.name }} <br>
+    </div>
+    <div class="card-body grid">
+        {% for p in student.presenca %} 
+          <a href="#" class="btn btn-sm btn-outline-primary m-1"> 
+            {{ p.disciplina }} 
+          </a> 
+        {% endfor %}
+    </div>
+  </div>
   {% endfor %}
-</ul>
 {% endblock %}

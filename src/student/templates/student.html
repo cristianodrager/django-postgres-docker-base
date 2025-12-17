@@ -1,0 +1,125 @@
+{% extends "base.html" %} 
+{% block content %}
+<h1>{{ student.name|upper }}</h1>
+<br>
+<h2 class="mb-3">Inscrições</h2>
+{% for turma in turmas %}
+
+    <div class="row border-bottom p-1" id="turma{{turma.pk}}">
+        <div class="col-10 col-sm-11">
+            {{ turma.year }} - {{ turma.name }}
+        </div>
+        <div class="col-2 col-sm-1 text-end">
+            <a 
+                href="#" 
+                class="btn btn-danger btn-sm justify-content-center d-flex align-items-center gap-1"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-confirm="Tem certeza que deseja cancelar a inscrição {{ turma.name }} ({{ turma.year }})?"
+                hx-delete="{% url "remove-student-turma" turma_id=turma.pk student_id=student.pk %}"
+                hx-target="#turma{{turma.pk}}"
+            >
+                <span class="material-icons">
+                    cancel
+                </span>
+            </a>
+        </div>
+    </div>
+
+{% endfor %} 
+<p class="mt-3 text-end">
+    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#activityModal">Inscrever nova atividade</a>
+</p>
+
+<!-- Modal Atividade -->
+<div class="modal fade" id="activityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="activityModalLabel">Pesquisar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+            <input 
+                type="text" 
+                class="form-control" 
+                name="search-turma" 
+                id="search-turma"
+                placeholder="Pesquisar Turma"
+                hx-get="{% url "turmas-filter-search" student.pk %}"
+                hx-target="#result-search-turma"  
+                hx-trigger="keyup changed delay:500ms"
+                autocomplete="off"
+            >
+        </p>
+        <p>
+            <div id="result-search-turma"></div>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-3">Responsáveis</h2>
+{% for legal in legals %}
+
+    <div id="pk{{legal.pk}}" class="row border-bottom p-1">
+            <div class="col-10 col-sm-11">            
+                {{ legal.legal_rep_type }} - {{ legal.legal_rep.name }}
+            </div>
+            <div class="col-2 col-sm-1 text-end">
+                <a 
+                    href="#" 
+                    class="btn btn-danger btn-sm justify-content-center d-flex align-items-center gap-1"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-confirm="Tem certeza que deseja remover o responsável {{ legal.legal_rep.name }} ({{ legal.legal_rep_type }})?"
+                    hx-delete="{% url "remove-legal-resp" legal_resp_student_id=legal.pk %}"
+                    hx-target="#pk{{legal.pk}}"
+                >
+                    <span class="material-icons">
+                        cancel
+                    </span>                
+                </a>
+            </div>
+        </div>
+
+{% endfor %} 
+<p class="mt-3 text-end">
+    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#parentModal">Inserir novo responsável</a>
+</p>
+
+<!-- Modal Responsável -->
+<div class="modal fade" id="parentModal" tabindex="-1" aria-labelledby="parentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="parentModalLabel">Pesquisar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+            <input 
+                type="text" 
+                class="form-control" 
+                name="cpf" 
+                id="cpf"
+                placeholder="Digite o CPF do responsável"
+                hx-get="{% url "search-family" pk=student.pk %}"
+                hx-target="#result-search-family"  
+                hx-trigger="keyup changed delay:500ms"
+                autocomplete="off"
+            >
+        </p>
+        <p>
+            <div id="result-search-family"></div>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

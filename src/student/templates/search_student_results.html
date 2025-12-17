@@ -1,0 +1,13 @@
+{% for student in students %}
+<p class="border-bottom py-2">
+    <a href="{% url "student" student.pk %}">
+        {{ student.name|upper }}
+    </a><br>
+    Turmas: 
+    {% for turma in student.turmas.all %}
+        {{ turma.year }} - {{ turma.name }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        Nenhuma
+    {% endfor %}
+</p>
+{% endfor %}

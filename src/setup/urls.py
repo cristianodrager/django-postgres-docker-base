@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-    path('account/', include('account.urls')),
-    path('scanner/', include('scanner.urls')),
-    path('family/', include('family.urls')),
-    path('grade/', include('grade.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("home.urls")),
+    path("account/", include("account.urls")),
+    path("scanner/", include("scanner.urls")),
+    path("family/", include("family.urls")),
+    path("grade/", include("grade.urls")),
+    path("student/", include("student.urls")),
 ]
-

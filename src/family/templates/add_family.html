@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<h1>Adicionar Responsável</h1><br>
+<form action="{% url "add-family-save" %}" method="post">
+    {% csrf_token %}
+    <input type="text" id="name" name="name" required class="form-control" placeholder="Nome Completo">
+    <br>
+    <input type="text" id="cpf" name="cpf" required class="form-control" placeholder="CPF"> 
+    <br>
+    <input type="email" id="email" name="email" required class="form-control" placeholder="E-mail">
+    <br>
+    <input type="text" id="phone" name="phone" required class="form-control" placeholder="Telefone">
+    <br>
+    <label for="tipo">Relação:</label><br>
+    <select id="tipo" name="tipo" class="form-select">
+        {% for chave, valor in choices %}
+        <option value="{{ chave }}">{{ valor }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit" class="btn btn-primary mt-2">Salvar</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Alunos</h1><br>
+<div class="input-group m-auto mb-4">
+    <input 
+        class="form-control"
+        type="search" 
+        id="student-search" 
+        name="q" 
+        hx-get="{% url 'search-results' %}" 
+        hx-target="#search-results" 
+        hx-trigger="keyup changed delay:500ms" 
+        placeholder="Procurar aluno..." 
+        autocomplete="off"
+    />
+    <span class="material-icons input-group-text">
+        search
+    </span>
+</div>
+<div id="search-results">
+    <!-- Search results will be injected here -->
+</div>
+{% endblock %}

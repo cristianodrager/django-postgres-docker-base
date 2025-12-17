@@ -1,5 +1,28 @@
 {% extends "base.html" %} {% block content %}
-<h1>{{ legal_rep.name }}</h1>
+<h1>{{ legal_rep.name }}</h1><br>
 {% for student in students %}
-<p>{{ student.name }}</p>
+<div class="card m-3 ">
+    <div class="card-header">
+        {{ student.name }}
+    </div>       
+    <div class="card-body">
+        {% if student.presenca.exists %}
+            <h3>Presente</h3>
+            {% if student.registro_saida.exists %}
+            {% for std in student.registro_saida %}
+            Buscado por: {{ std.picked_up_by.name }}
+            {% endfor %}
+            {% if student.confirmacao_saida.exists %}
+            <br>(Saída confirmada)
+            {% else %}
+            <br>(Saída não confirmada)
+            {% endif %}
+            {% else %}
+            Não saiu
+            {% endif %}
+        {% else %}
+            <h3>Ausente</h3>
+        {% endif %}
+    </div>
+</div><br>
 {% endfor %} {% endblock %}
