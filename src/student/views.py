@@ -4,7 +4,7 @@ from family.models import LegalRep
 
 
 def student(request, id):  # crud para responsáveis legais
-    student = Student.objects.filter(id=id).first()
+    student = Student.objects.filter(uuid=id).first()
     turmas = student.turmas.all().order_by("name")
     legal = student.legalrepstudent.all().order_by("legal_rep__name")
 
@@ -34,16 +34,14 @@ def search_results(request):  # htmx
 
 
 def add_legal_resp(request, student_id, legal_resp_id):
-    student = Student.objects.filter(pk=student_id).first()
+    student = Student.objects.filter(uuid=student_id).first()
     legal_resp = LegalRep.objects.filter(pk=legal_resp_id).first()
 
+    tipo = request.POST.get("tipo", "Outro")
+
     if student and legal_resp:
-        # Adiciona o responsável legal ao estudante com um tipo padrão, por exemplo "Outro"
-        # LegalRepStudent.objects.create(
-        #     student=student, legal_resp=legal_resp, legal_resp_type="Outro"
-        # )
         LegalRepStudent(
-            student=student, legal_rep=legal_resp, legal_rep_type="Outro"
+            student=student, legal_rep=legal_resp, legal_rep_type=tipo
         ).save()
 
     # Redireciona de volta para a página do estudante

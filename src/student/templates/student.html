@@ -67,8 +67,18 @@
     <div id="pk{{legal.pk}}" class="row border-bottom p-1">
             <div class="col-10 col-sm-11">            
                 {{ legal.legal_rep_type }} - {{ legal.legal_rep.name }}
+            
             </div>
-            <div class="col-2 col-sm-1 text-end">
+            <div class="col-2 col-sm-1 d-flex justify-content-end gap-1">
+                <a 
+                    href="{% url "edit-family" %}?cpf_hash={{ legal.legal_rep.cpf_hash }}&student_id={{ student.uuid }}" 
+                    class="btn btn-primary btn-sm justify-content-center d-flex align-items-center gap-1"
+                >
+                    <span class="material-icons">
+                        edit
+                    </span>                
+                </a>
+
                 <a 
                     href="#" 
                     class="btn btn-danger btn-sm justify-content-center d-flex align-items-center gap-1"
@@ -105,7 +115,7 @@
                 name="cpf" 
                 id="cpf"
                 placeholder="Digite o CPF do responsável"
-                hx-get="{% url "search-family" pk=student.pk %}"
+                hx-get="{% url "search-family" pk=student.uuid %}"
                 hx-target="#result-search-family"  
                 hx-trigger="keyup changed delay:500ms"
                 autocomplete="off"

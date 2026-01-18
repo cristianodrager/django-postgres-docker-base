@@ -10,4 +10,6 @@ urlpatterns = [
     path("family/", include("family.urls")),
     path("grade/", include("grade.urls")),
     path("student/", include("student.urls")),
+    path("face/", include("face_scanner.urls")),
+    path("monitor/", include("monitor.urls")),
 ]

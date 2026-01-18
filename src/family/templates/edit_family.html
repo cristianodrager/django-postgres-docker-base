@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+<h1>Adicionar Responsável</h1><br>
+<form action="{% url "add-family-save" %}" method="post">
+    {% csrf_token %}
+    
+    <input type="hidden" name="student" value="{{ student }}">
+    <input type="hidden" name="cpf_hash" value="{{ legal_resp.cpf_hash }}">
+    <div class="input-group m-auto mb-4">
+    <input type="text" id="name" name="name" value="{{ legal_resp.name }}" required class="form-control" placeholder="Nome Completo">
+    <span class="material-icons input-group-text">
+            contact_emergency
+        </span>
+    </div>
+    <div class="input-group m-auto mb-4">
+        <input type="text" id="cpf" name="cpf" value="{{ legal_resp.cpf }}" required class="form-control" placeholder="CPF"> 
+        <span class="material-icons input-group-text">
+            contact_emergency
+        </span>
+    </div>
+    <div class="input-group m-auto mb-4">
+        <input type="email" id="email" name="email" value="{{ legal_resp.email }}" required class="form-control" placeholder="E-mail">
+        <span class="material-icons input-group-text">
+            email
+        </span>
+    </div>
+    <div class="input-group m-auto mb-4">
+        <input type="text" id="phone" name="phone" value="{{ legal_resp.phone }}" required class="form-control" placeholder="Telefone">
+        <span class="material-icons input-group-text">
+            phone
+        </span>
+    </div>
+    {% if legal_resp.descriptor %}
+        <span>Biometria facial cadastrada</span>
+        <a href="{% url 'face-scanner' %}?cpf_hash={{ legal_resp.cpf_hash }}">Atualizar Biometria Facial</a>
+    {% else %}
+        <a href="{% url 'face-scanner' %}?cpf_hash={{ legal_resp.cpf_hash }}">Cadastrar Biometria Facial</a>
+    {% endif %}
+    <br>
+    <button type="submit" class="btn btn-primary mt-2">Salvar</button>
+</form>
+
+{% endblock %}

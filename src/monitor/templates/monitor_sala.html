@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Monitor de Sala</h1>       
+<p>
+    <form method="get">
+        <p>
+            {% for turma in turmas %}
+                <input type="checkbox" name="turma" id="turma_{{ turma.id }}" value="{{ turma.id }}"             
+                {% if turma.id in get_turmas %}checked{% endif %}>
+                <label for="turma_{{ turma.id }}">{{ turma.name }}</label>
+            {% endfor %} 
+        </p>
+        <p>
+            <button id="todos" class="btn btn-success btn-sm">Todos</button>
+            <button id="nenhum" class="btn btn-warning btn-sm">Nenhum</button>
+            <button type="submit" id="filtrar-turmas" class="btn btn-primary btn-sm">Filtrar</button>
+        </p>
+        <p>
+            Filtro aplicado: 
+            {% for turma in turmas %}
+                {% if turma.id in get_turmas %}
+                    <span class="badge bg-secondary">{{ turma.name }}</span>
+                {% endif %}
+            {% endfor %}
+        </p>
+        <script>
+            document.querySelector('#todos').addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('input[name="turma"]').forEach(function(checkbox) {
+                    checkbox.checked = true;
+                });
+            });
+
+            document.querySelector('#nenhum').addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelectorAll('input[name="turma"]').forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+            });
+        </script>
+        
+    </form>
+</p>
+{% for aluno in alunos %}
+    <div class="mb-2 border px-3 rounded">
+        <p>
+            <p class="text-lg mb-3">
+                ({{ aluno.turma.name }}) <b>{{ aluno.student.name }}</b> <br>
+                Responsável: {{ aluno.legal_rep.legal_rep.name|truncatewords:2 }} ({{ aluno.legal_rep.legal_rep_type }}) {{ aluno.time }}
+            </p>
+            <a href="#" class="btn btn-sm btn-primary">Confirmar saída da sala</a>
+            <a href="#" class="btn btn-sm btn-danger">Ausente</a>
+        </p>
+    </div>
+{% endfor %}
+{% endblock %}

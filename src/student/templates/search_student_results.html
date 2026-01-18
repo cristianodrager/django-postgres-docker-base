@@ -1,6 +1,6 @@
 {% for student in students %}
 <p class="border-bottom py-2">
-    <a href="{% url "student" student.pk %}">
+    <a href="{% url "student" student.uuid %}">
         {{ student.name|upper }}
     </a><br>
     Turmas: 

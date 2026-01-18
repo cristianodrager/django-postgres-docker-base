@@ -1,13 +1,20 @@
 {% for rep in legal_reps %}
 <p class="gap-2">  
-    {% comment %}Incluir parentesco{% endcomment %}   
-    <a 
-        href="{% url "add-legal-resp" student_id=student_id legal_resp_id=rep.pk  %}"
-        class="btn btn-primary btn-sm align-items-end gap-1"
-    >
-    Vincular
-    </a>
-     {{ rep.name }} - {{ rep.cpf }}
+    {% comment %}Incluir parentesco{% endcomment %} 
+    <form action="{% url "add-legal-resp" student_id=student_id legal_resp_id=rep.pk  %}" method="post">
+        {% csrf_token %}
+        <h5>
+        {{ rep.name }} - {{ rep.cpf }}
+        </h5>
+        <select class="form-select my-2" name="tipo">
+            {% for relationship in relationships %}
+                <option value="{{ relationship.0 }}">{{ relationship.1 }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="form-control btn btn-primary btn-sm align-items-end gap-1">
+            Vincular 
+        </button>
+    </form>
     <hr>
 </p>
 {% endfor %}
@@ -15,7 +22,7 @@
     Nenhum responsável encontrado.
     <br>
     <a 
-        href="{% url "add-family" %}"
+        href="{% url "add-family" %}?student_id={{ student_id }}"
         class="btn btn-secondary btn-sm align-items-end gap-1"
     >
         Adicionar novo

@@ -7,27 +7,12 @@ import hmac
 # Create your models here.
 class LegalRep(models.Model):
 
-    CHOICES = [
-        ("Pai", "Pai"),
-        ("Mãe", "Mãe"),
-        ("Avô", "Avô"),
-        ("Avó", "Avó"),
-        ("Tio", "Tio"),
-        ("Tia", "Tia"),
-        ("Irmão", "Irmão"),
-        ("Irmã", "Irmã"),
-        ("Amigo da família", "Amigo da família"),
-        ("Parente de 3º grau", "Parente de 3º grau"),
-        ("Responsável legal", "Responsável legal"),
-        ("Outro", "Outro"),
-    ]
-
     name = models.CharField(max_length=100)
     email = models.EmailField()
     cpf = models.CharField(max_length=11)
     cpf_hash = models.CharField(max_length=255, unique=True, null=True, blank=True)
-    # tipo = models.CharField(max_length=50, choices=CHOICES)
     phone = models.CharField(max_length=15)
+    descriptor = models.JSONField(unique=True, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -44,3 +29,7 @@ class LegalRep(models.Model):
         self.cpf = self.cpf[:6] + "*****"  # Masking CPF for privacy
 
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Responsável Legal"
+        verbose_name_plural = "Responsáveis Legais"

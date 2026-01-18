@@ -1,15 +1,18 @@
 from django.db import models
 from family.models import LegalRep
+import uuid
 
 
 # Create your models here.
 class Student(models.Model):
     id = models.AutoField(primary_key=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
-    # legal_rep = models.ManyToManyField(LegalRep, related_name="student")
+    # cpf_hash = models.CharField(max_length=64, unique=True, null=True, blank=True)
+    # born_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.uuid.__str__() + " - " + self.name
 
     class Meta:
         verbose_name = "Estudante"

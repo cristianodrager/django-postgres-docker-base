@@ -30,4 +30,16 @@
         "editor.defaultFormatter": "vscode.django-html",
         "editor.formatOnSave": true
     },
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "meuprojeto",
+            "database": "meuprojeto",
+            "username": "postgres"
+        }
+    ],
 }

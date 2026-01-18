@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'js/face-api.min.js' %}"></script>
+</head>
+<body>
+    
+    <input type="text" id="username" placeholder="Digite seu nome">
+    <div id="container">
+        <video id="video" width="600" height="450" autoplay muted></video>
+    </div>
+    
+    <br>
+    <button id="btn-cadastro" onclick="registerUser()" disabled>Capturar e Cadastrar</button>
+    <p id="status">Carregando modelos de IA...</p>
+
+    
+
+    <script>
+        const video = document.getElementById('video');
+        const statusText = document.getElementById('status');
+        const btnCadastro = document.getElementById('btn-cadastro');
+        const MODEL_URL = '/static/models';
+
+        // 1. Carregar modelos
+        Promise.all([
+            faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
+            faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+            faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+            faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+            faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)  
+        ]).then(startVideo);
+
+        // 2. Iniciar Webcam
+        function startVideo() {
+            navigator.mediaDevices.getUserMedia({ video: {} })
+                .then(stream => {
+                    video.srcObject = stream;
+                    statusText.innerText = "Sistema pronto. Posicione o rosto.";
+                    btnCadastro.disabled = false;
+                })
+                .catch(err => console.error(err));
+        }
+        video.addEventListener('play', () => {
+            // Agora o vídeo está rodando, pode habilitar o botão
+            console.log("Vídeo iniciado e pronto para detecção");
+        });
+
+        // 3. Função de Cadastro
+        async function registerUser() {
+            const name = document.getElementById('username').value;
+            
+            if (!name) {
+                alert("Por favor, digite um nome.");
+                return;
+            }
+
+            statusText.innerText = "Capturando biometria...";
+            
+            // Detecta rosto com alta precisão
+            const detection = await faceapi.detectSingleFace(video)
+                .withFaceLandmarks()
+                .withFaceDescriptor();
+
+            if (!detection) {
+                statusText.innerText = "Rosto não detectado. Tente novamente.";
+                return;
+            }
+
+            // Converter Float32Array para Array comum do JS
+            const descriptorArray = Array.from(detection.descriptor);
+
+            console.log("Biometria capturada:", descriptorArray);
+
+            saveToBackend(name, descriptorArray);
+        }
+
+        // 4. Enviar para o Django
+        function saveToBackend(name, descriptor) {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch('/face/register-face/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': {{ csrfToken }}
+                },
+                body: JSON.stringify({ 
+                    name: name,
+                    face_descriptor: descriptor 
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    statusText.innerText = "Usuário cadastrado com sucesso!";
+                    console.log("Cadastro realizado!");
+                    // Limpar formulário ou redirecionar
+                    document.getElementById('username').value = "";
+                    console.log(data);
+                } else {
+                    statusText.innerText = "Erro ao salvar: " + data.error;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                statusText.innerText = "Erro de conexão.";
+            });
+        }
+    </script>
+</body>
+</html>
