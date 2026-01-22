@@ -6,7 +6,6 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     libpq-dev gcc && \
-    apt-get install -y docker-compose-plugin && \
     apt-get install -y postgresql-client && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
 
@@ -17,4 +16,5 @@ COPY /src .
 
 EXPOSE 8000
 
-CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "setup.wsgi:application"]
+#CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
